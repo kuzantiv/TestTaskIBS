@@ -30,27 +30,9 @@ class TestWeb:
         print(response.text)
         assert response.status_code == 200
 
-    def test_contact_form(self, get_web_url):
-        data = {
-            "name": "Test User",
-            "email": "testuser@gmail.com",
-            "message": "This is a test message."
-        }
-        response = requests.post(get_web_url, data=data)
-        assert response.status_code == 200
-
-
-
-"""
-This code contains a TestAPI class for testing the API, and a TestWeb class for testing the website. The tests are parameterized, and fixtures are used to obtain the URL and other data that may be needed for the tests. 
-
-You can modify this code as per your specific requirements, and add more tests and classes as needed. Good luck with your project!
-"""
-"""
-Here is an example of positive and negative tests for logging in to https://reqres.in/:
-"""
 
 API_BASE_URL = 'https://reqres.in/api/'
+
 
 class TestAuthentication:
 
@@ -65,16 +47,16 @@ class TestAuthentication:
         "invalid_payload, expected_error_message",
         [
             (
-                {"email": "example@example.com"},
-                "Missing password",
+                    {"email": "example@example.com"},
+                    "Missing password",
             ),
             (
-                {"password": "123456"},
-                "Missing email or username",
+                    {"password": "123456"},
+                    "Missing email or username",
             ),
             (
-                {"email": "example@example.com", "password": "123456"},
-                "user not found",
+                    {"email": "example@example.com", "password": "123456"},
+                    "user not found",
             ),
         ],
     )
@@ -83,11 +65,3 @@ class TestAuthentication:
         response = requests.post(endpoint, data=invalid_payload)
         assert response.status_code == 400
         assert expected_error_message in str(response.json())
-
-"""
-The test_successful_login method sends a valid payload to the login endpoint and checks if the response status code is 200 and if the token key is present in the response JSON.
-
-The test_unsuccessful_login method is a parametrized test that sends a series of invalid payloads to the login endpoint and checks if the response status code is 400 and if the expected error message is present in the response JSON. The different invalid payloads represent various error conditions, such as missing email, missing password and user not found.
-
-These tests can be used as a reference when writing your own tests for logging in to https://reqres.in/.
-"""
